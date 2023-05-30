@@ -6,7 +6,19 @@ on:
   push:
 
 jobs:
-  build:
+  release-on-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: minor
+          
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
